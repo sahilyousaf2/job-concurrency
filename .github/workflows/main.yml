@@ -1,0 +1,30 @@
+name: Job Concurrency
+
+on:
+  push:
+    branches: [ main ]
+
+
+jobs:
+  job-concurrency:
+    runs-on: ubuntu-latest
+
+    concurrency: 
+      group: Depoly
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6.0.2
+
+      - name: Install Dependecies
+        run: npm install
+
+      - name: Build Next JS
+        run: npm run build
+
+      - name: Depoly Our App
+        run: echo "Deployed Your App Sucessfully...!
+
+      
+      
