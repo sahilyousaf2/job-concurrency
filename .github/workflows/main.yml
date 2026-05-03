@@ -4,27 +4,29 @@ on:
   push:
     branches: [ main ]
 
-
 jobs:
   job-concurrency:
     runs-on: ubuntu-latest
 
     concurrency: 
-      group: Depoly
+      group: Deploy
       cancel-in-progress: true
 
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v4
 
-      - name: Install Dependecies
-        run: npm install
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
 
       - name: Build Next JS
         run: npm run build
 
-      - name: Depoly Our App
-        run: echo "Deployed Your App Sucessfully...!
-
-      
-      
+      - name: Deploy Our App
+        run: echo "Deployed Your App Successfully...!"
